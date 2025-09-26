@@ -1,12 +1,18 @@
+from class_.Exceptions import VehicleError,NotFoundOption,InvalidVehicleDataError,ConcesionarioError
+from class_.Vehicle import Vehicle
+from functools import reduce
+
 class Concesionary():
     def __init__(self, alias):
         self.alias = alias
         self.vehicles = []
+        self.identities = [] # List to store unique vehicle IDs to associate car through option 1,2,3
 
     def add_(self, vehicle):
         if not isinstance(vehicle, Vehicle):
             raise ConcesionarioError("Auto or Moto can be added as object")
         self.vehicles.append(vehicle)
+        self.identities.append(vehicle.identity)  # Store the vehicle's unique ID
         print(f"✅ Vehicle {vehicle.model} agregado correctamente a {self.alias}")
 
     def show_by_category(self):
@@ -22,14 +28,7 @@ class Concesionary():
 
         return reduce(lambda cc,key: cc + categories[key], categories, 0)
 
-    def show_details_by_category(self):
-        if not self.vehicles:
-            raise ConcesionarioError(f"{self.alias} no tiene vehículos registrados para mostrar.")
-
-        autos = {}
-        for v in self.vehicles:
-            autos[v.model] = v.get_properties()
-
+    def show(self, autos):
         current_vehicle = ""
         count = 0
         result = ""
@@ -58,3 +57,24 @@ class Concesionary():
                 f"\n\t💵 Price: {price}"
                 f"\n\t⭐ Extra: {extra}{' cc' if type_ == 'moto' else ' doors'}\n"
             )
+        return result
+
+    def get_vehicle(self, id):
+        autos = {}
+        for v in self.vehicles:
+            if str(v.get_id()) == str(id):
+                autos[id] = v.get_properties()
+
+        result = self.show(autos)
+        return result
+
+    def show_details_by_category(self):
+        if not self.vehicles:
+            raise ConcesionarioError(f"{self.alias} there are not any vehicles to show.")
+
+        autos = {}
+        for v in self.vehicles:
+            autos[v.get_id()] = v.get_properties()
+
+        result = self.show(autos)
+        return result

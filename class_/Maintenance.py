@@ -1,28 +1,22 @@
+from class_.Exceptions import VehicleError,NotFoundOption,InvalidVehicleDataError,ConcesionarioError
 from class_.Vehicle import Vehicle
 from class_.Concesionary import Concesionary
 
-class Maintenance(Concesionary):
+class Maintenance(Vehicle, Concesionary):
+    def __init__(self):
+        Vehicle().__init__(self)
+        Concesionary().__init__(self)
 
-    def __init__(self,alias):
+    def show_maintenance(self):
+        if not self.vehicles:
+            raise ConcesionarioError(f"{self.alias} no tiene vehículos registrados para mostrar.")
 
-        super().__init__(self,alias)
-        self.vehicles = {}
-        self.maintenances_history = {}
+        result = f"\n🛠️ Mantenimiento de vehículos en {self.alias}:\n"
 
-    def register_maintenance(self, vehicle, maintenance):
+        return result
 
-        try:
-
-            self.vehicles = super().vehicles
-
-            if not isinstance(vehicle, Vehicle):raise Exception("Error passing instance. Excepted Vehicle")
-            maintenances_history.append(maintenance)
-            vehicles["maintenances"] = maintenances_history
-
-        except Exception as e:
-
-            print(e)
-
-    def info(self):
-        
-        return self.vehicles
+    def register_maintenance(self, id,  title, description, date):
+        self.maintenance_records[id] = {
+            "description": description,
+            "date": date
+        }

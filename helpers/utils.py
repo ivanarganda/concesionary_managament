@@ -12,15 +12,14 @@ def generateMenu(menu):
         "range": f"Type an option (1-{len(menu.keys())})\n"
     }
 
-def get_menus():
-    return {
-        "main_menu": {
+def get_menus( there_are_vehicles = False ):
+
+    obj = {
             "title": f"\n=== Concesionary warehouse ===\n",
             "options": {
                 "1":"See concesionaries\n",
                 "2":"Add vehicles\n",
-                "3":"See vehicles\n",
-                "4":"Exit\n"
+                "3":"See vehicles\n"
             },
             "dispatchs": {
                 "1":"get_concesionaries",
@@ -28,6 +27,18 @@ def get_menus():
                 "3":"see_vehicles"
             }
         }
+
+    if there_are_vehicles == True:
+        obj["options"]["4"]="See maintenance\n"
+        obj["dispatchs"]["4"]="see_maintenance"
+        obj["options"]["5"]="Exit\n"
+        obj["dispatchs"]["5"]="exit"
+    else:
+        obj["options"]["4"]="Exit\n"
+        obj["dispatchs"]["4"]="exit"
+
+    return {
+        "main_menu": obj
     }
 
 def get_concecionaries_items(key):
@@ -66,6 +77,10 @@ def returnIndex(list_, i):
         return list_[i-1]
 
     except IndexError:
+
+        return False
+
+    except ValueError:
 
         return False
 
