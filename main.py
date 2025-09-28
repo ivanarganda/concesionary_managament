@@ -109,9 +109,9 @@ def add_new_vehicle():
 
             get_concesionaries()
 
-            # op_ = input("Choose the concesionary ('q' to back to main menu): \n")
+            op_ = input("Choose the concesionary ('q' to back to main menu): \n")
 
-            op_ = "a" # Hardcodeamos las validaciones básicas TODO
+            # op_ = "a" # Hardcodeamos las validaciones básicas TODO
 
             if op_ == "q":
                 break
@@ -119,29 +119,29 @@ def add_new_vehicle():
             concesionary_key = returnIndex(list(concesionaries.keys()), op_)
             co = concesionary_objects[concesionary_key]
 
-            # type_vehicle = input("Type the kind of vehicle (moto or auto):\n")
+            type_vehicle = input("Type the kind of vehicle (moto or auto):\n")
 
-            type_vehicle = "auto" # Hardcodeamos las validaciones básicas TODO
+            # type_vehicle = "auto" # Hardcodeamos las validaciones básicas TODO
 
             if type_vehicle not in vehicles_:
                 raise Exception("Not found type")
 
-            # brand = input(f"Type the brand of {type_vehicle}: ")
-            # model = input(f"Type the model of {type_vehicle}: ")
-            # year = int(input(f"Type the year of fabrication of {type_vehicle}: "))
-            # price = int(input(f"Type the price of {type_vehicle}: "))
+            brand = input(f"Type the brand of {type_vehicle}: ")
+            model = input(f"Type the model of {type_vehicle}: ")
+            year = int(input(f"Type the year of fabrication of {type_vehicle}: "))
+            price = int(input(f"Type the price of {type_vehicle}: "))
 
             # Hardcodeamos las validaciones básicas TODO
-            brand = "wfef"
-            model = "wefwef"
-            year = 2020
-            price = 20000
+            # brand = "wfef"
+            # model = "wefwef"
+            # year = 2020
+            # price = 20000
 
             if brand == "" or model == "" or year <= 0 or price <= 0:
                 raise Exception("Type correct data format")
 
-            # extra = int(input(vehicles_[type_vehicle]["extra"]))
-            extra = 5 # Hardcodeamos las validaciones básicas TODO
+            extra = int(input(vehicles_[type_vehicle]["extra"]))
+            # extra = 5 # Hardcodeamos las validaciones básicas TODO
             vehicle = vehicles_[type_vehicle]["class"](brand, model, year, extra, price)
             co.add_(vehicle)
 
